@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>606</width>
-    <height>589</height>
+    <height>604</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -20,13 +20,16 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QGroupBox" name="groupBox_7">
+   <widget class="QGroupBox" name="groupBox_AverageSampling">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
     <property name="geometry">
      <rect>
-      <x>183</x>
-      <y>7</y>
-      <width>138</width>
-      <height>131</height>
+      <x>220</x>
+      <y>10</y>
+      <width>175</width>
+      <height>133</height>
      </rect>
     </property>
     <property name="title">
@@ -68,10 +71,24 @@
      <item>
       <layout class="QVBoxLayout" name="verticalLayout_11">
        <item>
-        <widget class="QSpinBox" name="spinBox_PointAverage"/>
+        <widget class="QSpinBox" name="spinBox_PointAverage">
+         <property name="minimum">
+          <number>1</number>
+         </property>
+         <property name="maximum">
+          <number>1000</number>
+         </property>
+        </widget>
        </item>
        <item>
-        <widget class="QSpinBox" name="spinBox_SweepAverage"/>
+        <widget class="QSpinBox" name="spinBox_SweepAverage">
+         <property name="minimum">
+          <number>1</number>
+         </property>
+         <property name="maximum">
+          <number>1000</number>
+         </property>
+        </widget>
        </item>
        <item>
         <widget class="QComboBox" name="comboBox_Smooth"/>
@@ -83,13 +100,16 @@
      </item>
     </layout>
    </widget>
-   <widget class="QGroupBox" name="groupBox_8">
+   <widget class="QGroupBox" name="groupBox_Sweep">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
     <property name="geometry">
      <rect>
-      <x>183</x>
-      <y>142</y>
-      <width>98</width>
-      <height>73</height>
+      <x>230</x>
+      <y>150</y>
+      <width>95</width>
+      <height>86</height>
      </rect>
     </property>
     <property name="title">
@@ -119,13 +139,16 @@
      </item>
     </layout>
    </widget>
-   <widget class="QGroupBox" name="groupBox_9">
+   <widget class="QGroupBox" name="groupBox_PeaksDips">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
     <property name="geometry">
      <rect>
-      <x>183</x>
-      <y>219</y>
-      <width>98</width>
-      <height>127</height>
+      <x>230</x>
+      <y>250</y>
+      <width>102</width>
+      <height>172</height>
      </rect>
     </property>
     <property name="title">
@@ -133,7 +156,7 @@
     </property>
     <layout class="QVBoxLayout" name="verticalLayout_13">
      <item>
-      <widget class="QPushButton" name="pushButton">
+      <widget class="QPushButton" name="pushButton_peakSearch">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
          <horstretch>0</horstretch>
@@ -146,7 +169,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton_5">
+      <widget class="QPushButton" name="pushButton_dipSearch">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
          <horstretch>0</horstretch>
@@ -159,7 +182,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton_2">
+      <widget class="QPushButton" name="pushButton_peakToCenter">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
          <horstretch>0</horstretch>
@@ -172,7 +195,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton_3">
+      <widget class="QPushButton" name="pushButton_TMkrToCenter">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
          <horstretch>0</horstretch>
@@ -185,7 +208,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton_4">
+      <widget class="QPushButton" name="pushButton_peakToLevel">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
          <horstretch>0</horstretch>
@@ -199,13 +222,13 @@
      </item>
     </layout>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
-      <x>6</x>
-      <y>6</y>
-      <width>172</width>
-      <height>528</height>
+      <x>9</x>
+      <y>9</y>
+      <width>217</width>
+      <height>564</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout_9">
@@ -261,7 +284,10 @@
       </widget>
      </item>
      <item>
-      <widget class="QGroupBox" name="groupBox_2">
+      <widget class="QGroupBox" name="groupBox_Wavelength">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
          <horstretch>0</horstretch>
@@ -335,10 +361,33 @@
         <item>
          <layout class="QVBoxLayout" name="verticalLayout_3">
           <item>
-           <widget class="QDoubleSpinBox" name="doubleSpinBox_Center"/>
+           <widget class="QDoubleSpinBox" name="doubleSpinBox_Center">
+            <property name="minimum">
+             <double>600.000000000000000</double>
+            </property>
+            <property name="maximum">
+             <double>1750.000000000000000</double>
+            </property>
+            <property name="singleStep">
+             <double>0.010000000000000</double>
+            </property>
+           </widget>
           </item>
           <item>
-           <widget class="QDoubleSpinBox" name="doubleSpinBox_Span"/>
+           <widget class="QDoubleSpinBox" name="doubleSpinBox_Span">
+            <property name="decimals">
+             <number>1</number>
+            </property>
+            <property name="minimum">
+             <double>0.100000000000000</double>
+            </property>
+            <property name="maximum">
+             <double>1200.000000000000000</double>
+            </property>
+            <property name="singleStep">
+             <double>0.100000000000000</double>
+            </property>
+           </widget>
           </item>
           <item>
            <widget class="QComboBox" name="comboBox_MarkerValue"/>
@@ -352,7 +401,10 @@
       </widget>
      </item>
      <item>
-      <widget class="QGroupBox" name="groupBox_4">
+      <widget class="QGroupBox" name="groupBox_Level">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
          <horstretch>0</horstretch>
@@ -431,10 +483,33 @@
            <item>
             <layout class="QVBoxLayout" name="verticalLayout_5">
              <item>
-              <widget class="QDoubleSpinBox" name="doubleSpinBox_dBdiv"/>
+              <widget class="QDoubleSpinBox" name="doubleSpinBox_dBdiv">
+               <property name="decimals">
+                <number>1</number>
+               </property>
+               <property name="minimum">
+                <double>0.100000000000000</double>
+               </property>
+               <property name="maximum">
+                <double>10.000000000000000</double>
+               </property>
+               <property name="singleStep">
+                <double>0.100000000000000</double>
+               </property>
+              </widget>
              </item>
              <item>
-              <widget class="QDoubleSpinBox" name="doubleSpinBox_Ref_Level"/>
+              <widget class="QDoubleSpinBox" name="doubleSpinBox_Ref_Level">
+               <property name="minimum">
+                <double>-90.000000000000000</double>
+               </property>
+               <property name="maximum">
+                <double>30.000000000000000</double>
+               </property>
+               <property name="singleStep">
+                <double>0.100000000000000</double>
+               </property>
+              </widget>
              </item>
             </layout>
            </item>
@@ -442,7 +517,16 @@
          </widget>
         </item>
         <item>
-         <widget class="QGroupBox" name="groupBox_5">
+         <widget class="QGroupBox" name="groupBox_2">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="title">
            <string>Linear</string>
           </property>
@@ -470,6 +554,15 @@
                <verstretch>0</verstretch>
               </sizepolicy>
              </property>
+             <property name="decimals">
+              <number>0</number>
+             </property>
+             <property name="minimum">
+              <double>1.000000000000000</double>
+             </property>
+             <property name="maximum">
+              <double>1000.000000000000000</double>
+             </property>
             </widget>
            </item>
            <item>
@@ -482,7 +575,10 @@
       </widget>
      </item>
      <item>
-      <widget class="QGroupBox" name="groupBox_6">
+      <widget class="QGroupBox" name="groupBox_ResolutionVBW">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
        <property name="title">
         <string>Resolution and VBW</string>
        </property>
@@ -522,7 +618,7 @@
              </font>
             </property>
             <property name="text">
-             <string>VBW (nm)</string>
+             <string>VBW</string>
             </property>
            </widget>
           </item>
@@ -541,7 +637,7 @@
            </widget>
           </item>
           <item>
-           <widget class="QLineEdit" name="lineEdit"/>
+           <widget class="QLineEdit" name="lineEdit_ActualResolution"/>
           </item>
           <item>
            <widget class="QComboBox" name="comboBox_VBW"/>
@@ -553,6 +649,71 @@
      </item>
     </layout>
    </widget>
+   <widget class="QLineEdit" name="lineEdit_error">
+    <property name="geometry">
+     <rect>
+      <x>90</x>
+      <y>530</y>
+      <width>113</width>
+      <height>20</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_14">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>530</y>
+      <width>81</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Error Message</string>
+    </property>
+   </widget>
+   <widget class="QGroupBox" name="groupBox_Memory">
+    <property name="geometry">
+     <rect>
+      <x>360</x>
+      <y>210</y>
+      <width>50</width>
+      <height>73</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>Memory choice</string>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout_14">
+     <item>
+      <widget class="QRadioButton" name="radioButton_memoryA">
+       <property name="text">
+        <string>A</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QRadioButton" name="radioButton_memoryB">
+       <property name="text">
+        <string>B</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QPushButton" name="pushButton_recieveSpectrum">
+    <property name="geometry">
+     <rect>
+      <x>360</x>
+      <y>300</y>
+      <width>111</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Recieve Spectrum</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
@@ -560,7 +721,7 @@
      <x>0</x>
      <y>0</y>
      <width>606</width>
-     <height>17</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuGodDamn">
