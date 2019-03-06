@@ -1,6 +1,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include <QObject>
 #include <QMainWindow>
 #include <QSerialPort>
 #include <QSerialPortInfo>
@@ -9,6 +10,8 @@
 #include <QTest>
 #include "helpwindow.h"
 #include "settings.h"
+#include "anritsums9710c.h"
+#include "qcustomplot.h"
 
 namespace Ui {
 class MainWindow;
@@ -34,12 +37,10 @@ private slots:
     void initialization(bool);
     void settingsPull();
     void settingsPush();
-    void sendCommand(const QString &s);
-    QString recieveCommand();
 
-    void on_radioButton_memoryA_toggled(bool checked);
+    void on_radioButton_memoryA_clicked();
 
-    void on_radioButton_memoryB_toggled(bool checked);
+    void on_radioButton_memoryB_clicked();
 
     void on_pushButton_recieveSpectrum_clicked();
 
@@ -84,6 +85,8 @@ private slots:
 
     void on_comboBox_SamplingPoints_activated(const QString &arg1);
 
+    void on_pushButton_exportToFile_clicked();
+
 signals:
     void message(const QString &s); // Отправка ответа в слот
     void errorMessage(const QString &s);
@@ -103,9 +106,11 @@ private:
     HelpWindow *help;
     Settings *settings;
 
-    int firstWaitTime = 100; // Первичное время ожидания новых данных, мс
+    int firstWaitTime = 500; // Первичное время ожидания новых данных, мс
     int additionalWaitTime = 10; // Дополнительное время ожидания новых данных, мс
-    QSerialPort *serial; // SerialPort
+    AnritsuMS9710C *anritsu;
+
+    QVector<double> x,y;
 };
 
 #endif // MAINWINDOW_H

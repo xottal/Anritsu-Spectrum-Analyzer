@@ -6,7 +6,7 @@
 
 QT       += core gui serialport testlib
 
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets printsupport
 
 TARGET = Anritsu
 TEMPLATE = app
@@ -28,12 +28,16 @@ SOURCES += \
         main.cpp \
         mainwindow.cpp \
     helpwindow.cpp \
-    settings.cpp
+    settings.cpp \
+    anritsums9710c.cpp \
+    qcustomplot.cpp
 
 HEADERS += \
         mainwindow.h \
     helpwindow.h \
-    settings.h
+    settings.h \
+    anritsums9710c.h \
+    qcustomplot.h
 
 FORMS += \
         mainwindow.ui \
