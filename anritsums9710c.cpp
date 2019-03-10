@@ -319,6 +319,33 @@ QString AnritsuMS9710C::receiveSpectrum(bool checked)
     return receiveCommand();
 }
 
+void AnritsuMS9710C::peakSearch()
+{
+    sendCommand("PKS NEXT");
+    //sendCommand("PKS PEAK");
+}
+
+void AnritsuMS9710C::dipSearch()
+{
+    sendCommand("DPS NEXT");
+    //sendCommand("DPS DIP");
+}
+
+void AnritsuMS9710C::peakCenter()
+{
+    sendCommand("PKC");
+}
+
+void AnritsuMS9710C::tMkrCenter()
+{
+    sendCommand("TMC");
+}
+
+void AnritsuMS9710C::peakLevel()
+{
+    sendCommand("PKL");
+}
+
 QString AnritsuMS9710C::memorySelect()
 {
     sendCommand("MSL?");

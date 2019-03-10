@@ -6,6 +6,7 @@ HelpWindow::HelpWindow(QWidget *parent) :
     ui(new Ui::HelpWindow)
 {
     ui->setupUi(this);
+    ui->label_3->setStyleSheet("backround image: url(:/pinout.png)");
 }
 
 HelpWindow::~HelpWindow()

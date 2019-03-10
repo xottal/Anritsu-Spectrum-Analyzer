@@ -186,6 +186,10 @@ void MainWindow::initialization(bool bl)
     ui->actionSettings->setEnabled(bl);
     ui->actionPull_Settings->setEnabled(bl);
     ui->actionPush_Settings->setEnabled(bl);
+    ui->lineEdit_nameOfFile->setEnabled(bl);
+    ui->label_nameOfFile->setEnabled(bl);
+    ui->pushButton_exportToFile->setEnabled(bl);
+    ui->pushButton_recieveSpectrum->setEnabled(bl);
 }
 
 void MainWindow::settingsPull()
@@ -252,6 +256,8 @@ void MainWindow::settingsPull()
     emit errorSignal(anritsu->error());
     emit terminaterSignal(anritsu->terminater());
     emit autoBacklightSignal(anritsu->autoBacklight());
+
+    ui->widget_graph->replot();
 
     emit message("Sync finished");
 }
@@ -468,8 +474,33 @@ void MainWindow::on_pushButton_exportToFile_clicked()
     if(ui->comboBox_LogLin->currentText() == "Log")
         out << "nm" << '\t' << "dB/div" << "\r\n";
     else
-        out << "nm" << '\t' << ui->comboBox_LinearLevel->currentText() << "\r\n";
+        out << "nm" << '\t' << "mW" << "\r\n";
     for(int i = 0; x.size(); i++)
         out << x[i] << '\t' << y[i] << "\r\n";
     file.close();
+}
+
+void MainWindow::on_pushButton_peakSearch_clicked()
+{
+    anritsu->peakSearch();
+}
+
+void MainWindow::on_pushButton_dipSearch_clicked()
+{
+    anritsu->dipSearch();
+}
+
+void MainWindow::on_pushButton_peakToCenter_clicked()
+{
+    anritsu->peakCenter();
+}
+
+void MainWindow::on_pushButton_TMkrToCenter_clicked()
+{
+    anritsu->tMkrCenter();
+}
+
+void MainWindow::on_pushButton_peakToLevel_clicked()
+{
+    anritsu->peakLevel();
 }

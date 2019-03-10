@@ -17,7 +17,7 @@
    </sizepolicy>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Anritsu v1.0.0</string>
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QHBoxLayout" name="horizontalLayout_12">
@@ -360,9 +360,6 @@
               </property>
               <property name="singleStep">
                <double>0.010000000000000</double>
-              </property>
-              <property name="stepType">
-               <enum>QAbstractSpinBox::AdaptiveDecimalStepType</enum>
               </property>
              </widget>
             </item>
@@ -716,7 +713,7 @@
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_11">
         <item>
-         <widget class="QLabel" name="label_15">
+         <widget class="QLabel" name="label_nameOfFile">
           <property name="text">
            <string>Name of file</string>
           </property>
@@ -744,7 +741,7 @@
      <x>0</x>
      <y>0</y>
      <width>556</width>
-     <height>21</height>
+     <height>17</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuGodDamn">

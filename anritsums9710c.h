@@ -87,6 +87,12 @@ public:
 
     QString receiveSpectrum(bool);
 
+    void peakSearch();
+    void dipSearch();
+    void peakCenter();
+    void tMkrCenter();
+    void peakLevel();
+
 signals:
     void errorMessage(const QString&);
 

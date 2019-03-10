@@ -87,6 +87,16 @@ private slots:
 
     void on_pushButton_exportToFile_clicked();
 
+    void on_pushButton_peakSearch_clicked();
+
+    void on_pushButton_dipSearch_clicked();
+
+    void on_pushButton_peakToCenter_clicked();
+
+    void on_pushButton_TMkrToCenter_clicked();
+
+    void on_pushButton_peakToLevel_clicked();
+
 signals:
     void message(const QString &s); // Отправка ответа в слот
     void errorMessage(const QString &s);
