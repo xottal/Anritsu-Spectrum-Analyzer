@@ -72,5 +72,8 @@ void Settings::on_spinBox_autoBacklight_editingFinished()
 
 void Settings::on_comboBox_terminater_activated(const QString &arg1)
 {
-    terminaterSignal(arg1.toInt());
+    if(arg1 == "LF,EOI")
+        terminaterSignal(0);
+    else
+        terminaterSignal(1);
 }

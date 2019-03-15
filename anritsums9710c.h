@@ -102,7 +102,7 @@ private:
     QString receiveCommand();
 
     const int firstWaitTime = 500;
-    const int additionalWaitTime = 10;
+    const int additionalWaitTime = 20;
 
 };
 

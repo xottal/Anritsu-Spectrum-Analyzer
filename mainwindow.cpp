@@ -206,6 +206,7 @@ void MainWindow::settingsPull()
 
     //wavelength
     ui->doubleSpinBox_Center->setValue(anritsu->centralWavelength());
+    emit message(QString("%1").arg(anritsu->centralWavelength(),0,'g',6));
     ui->doubleSpinBox_Span->setValue(anritsu->span());
     ui->comboBox_MarkerValue->setCurrentText(anritsu->markerValue());
     ui->comboBox_VacuumAir->setCurrentText(anritsu->valueInVacuum());
@@ -259,7 +260,7 @@ void MainWindow::settingsPull()
 
     ui->widget_graph->replot();
 
-    emit message("Sync finished");
+    emit message("Pull finished");
 }
 
 void MainWindow::settingsPush()
@@ -269,7 +270,6 @@ void MainWindow::settingsPush()
     anritsu->span(ui->doubleSpinBox_Span->value());
     anritsu->markerValue(ui->comboBox_MarkerValue->currentText());
     anritsu->valueInVacuum(ui->comboBox_VacuumAir->currentText());
-
     QString levelScale;
     levelScale = ui->comboBox_LogLin->currentText();
     if(levelScale == "Log") {
@@ -288,13 +288,14 @@ void MainWindow::settingsPush()
     anritsu->videoBandwidth(ui->comboBox_VBW->currentText());
     anritsu->pointAverage(ui->spinBox_PointAverage->value());
     anritsu->sweepAverage(ui->spinBox_SweepAverage->value());
-    anritsu->smooth(ui->comboBox_Sweep->currentText());
+    anritsu->smooth(ui->comboBox_Smooth->currentText());
 
     //sampling points
     anritsu->samplingPoints(ui->comboBox_SamplingPoints->currentText());
     emit autoBacklightSignalPush();
     emit buzzerSignalPush();
-    emit terminaterSignalPush();
+    //emit terminaterSignalPush();
+    emit message("Pull finished");
 }
 
 void MainWindow::on_pushButton_recieveSpectrum_clicked()
@@ -302,18 +303,20 @@ void MainWindow::on_pushButton_recieveSpectrum_clicked()
     QString spectrum = anritsu->receiveSpectrum(ui->radioButton_memoryA->isChecked());
     QRegExp rx(",");
     QStringList spec = spectrum.split(rx);
+    x.clear();
+    y.clear();
     for(int i = 0; i < spec.size(); i++)
         y.push_back(spec[i].toDouble());
-    for (int i = 0; i<spec.size(); i++)
-        x[i] = ui->doubleSpinBox_Center->value()-ui->doubleSpinBox_Span->value()/2+ui->doubleSpinBox_Span->value()*double(i)/double(ui->comboBox_SamplingPoints->currentText().toInt());
+    for (int i = 0; i < spec.size(); i++)
+        x.push_back(ui->doubleSpinBox_Center->value()-ui->doubleSpinBox_Span->value()/2+ui->doubleSpinBox_Span->value()*double(i)/(double(ui->comboBox_SamplingPoints->currentText().toInt())-1));
     ui->widget_graph->graph(0)->setData(x,y);
     if(ui->comboBox_LogLin->currentText() == "Log")
-        ui->widget_graph->yAxis->setLabel("dB/div");
+        ui->widget_graph->yAxis->setLabel("dBm");
     else {
-        ui->widget_graph->yAxis->setLabel(ui->comboBox_LinearLevel->currentText());
+        ui->widget_graph->yAxis->setLabel("mW");
     }
     ui->widget_graph->xAxis->setLabel("nm");
-    ui->widget_graph->xAxis->setRange(ui->doubleSpinBox_Center->value()-ui->doubleSpinBox_Span->value()/2.0,ui->doubleSpinBox_Center->value()+ui->doubleSpinBox_Span->value()/2.0);
+    ui->widget_graph->rescaleAxes();
     ui->widget_graph->replot();
 }
 
@@ -467,16 +470,20 @@ void MainWindow::on_comboBox_SamplingPoints_activated(const QString &arg1)
 
 void MainWindow::on_pushButton_exportToFile_clicked()
 {
-    QFile file(ui->lineEdit_nameOfFile->text()+".dat"+QTime::currentTime().toString());
-    if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
-            return;
+    QDir dir = QDir();
+    QFile file(dir.absolutePath()+"/"+ui->lineEdit_nameOfFile->text()+"_"+QDateTime::currentDateTime().toString("yyyy_MM_dd_HH_mm_ss")+".dat");
+    if (!file.open(QIODevice::WriteOnly)) {
+        emit message("Can't open file");
+        return;
+    }
     QTextStream out(&file);
+    out << "Wavelength" << '\t' << "Optical power" << endl;
     if(ui->comboBox_LogLin->currentText() == "Log")
-        out << "nm" << '\t' << "dB/div" << "\r\n";
+        out << "nm" << '\t' << "dBm" << endl;
     else
-        out << "nm" << '\t' << "mW" << "\r\n";
-    for(int i = 0; x.size(); i++)
-        out << x[i] << '\t' << y[i] << "\r\n";
+        out << "nm" << '\t' << "mW" << endl;
+    for(int i = 0; i < x.size(); i++)
+        out << x[i] << '\t' << y[i] << endl;
     file.close();
 }
 

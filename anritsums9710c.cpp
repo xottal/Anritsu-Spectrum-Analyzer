@@ -194,7 +194,7 @@ void AnritsuMS9710C::pointAverage(const int &i)
     if(i == 1)
         sendCommand("AVT OFF");
     else
-        sendCommand("AVT "+QString(i));
+        sendCommand("AVT "+QString::number(i));
 }
 
 int AnritsuMS9710C::sweepAverage()
@@ -212,7 +212,7 @@ void AnritsuMS9710C::sweepAverage(const int &i)
     if(i == 1)
         sendCommand("AVS OFF");
     else
-        sendCommand("AVS "+QString(i));
+        sendCommand("AVS "+QString::number(i));
 }
 
 QString AnritsuMS9710C::smooth()
@@ -269,24 +269,24 @@ QString AnritsuMS9710C::error()
 
 int AnritsuMS9710C::autoBacklight()
 {
-    sendCommand("TRM?");
+    sendCommand("BKL?");
     return receiveCommand().toInt();
 }
 
 void AnritsuMS9710C::autoBacklight(const int &autoBacklight)
 {
-    sendCommand("BKL " + QString(autoBacklight));
+    sendCommand("BKL " + QString::number(autoBacklight));
 }
 
 int AnritsuMS9710C::terminater()
 {
-    sendCommand("BKL?");
+    sendCommand("TRM?");
     return receiveCommand().toInt();
 }
 
 void AnritsuMS9710C::terminater(const int &terminater)
 {
-    sendCommand("TRM " + QString(terminater));
+    sendCommand("TRM " + QString::number(terminater));
 }
 
 void AnritsuMS9710C::singleSweep()
@@ -403,7 +403,6 @@ void AnritsuMS9710C::markerValue(const QString &s)
 void AnritsuMS9710C::sendCommand(const QString &s)
 {
     serial->write((s+"\n").toLocal8Bit());
-    QTest::qWait(50);
 }
 
 QString AnritsuMS9710C::receiveCommand()

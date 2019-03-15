@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>128</width>
-    <height>111</height>
+    <width>158</width>
+    <height>119</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -52,7 +52,11 @@
       </widget>
      </item>
      <item>
-      <widget class="QComboBox" name="comboBox_terminater"/>
+      <widget class="QComboBox" name="comboBox_terminater">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+      </widget>
      </item>
     </layout>
    </item>
