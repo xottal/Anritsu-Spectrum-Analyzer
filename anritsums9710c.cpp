@@ -21,25 +21,25 @@ bool AnritsuMS9710C::connectSerialPort(const QString &s)
     return serial->open(QIODevice::ReadWrite);
 }
 
-void AnritsuMS9710C::disconnectSerialPort()
+void AnritsuMS9710C::disconnectSerialPort() const
 {
     serial->close();
 }
 
-QSerialPort::SerialPortError AnritsuMS9710C::serialError()
+QSerialPort::SerialPortError AnritsuMS9710C::serialError() const
 {
     QSerialPort::SerialPortError getError = QSerialPort::NoError;
     serial->error(getError);
     return serial->error();
 }
 
-QString AnritsuMS9710C::identifecation()
+QString AnritsuMS9710C::identifecation() const
 {
     sendCommand("*IDN?");
     return(receiveCommand());
 }
 
-QString AnritsuMS9710C::valueInVacuum()
+QString AnritsuMS9710C::valueInVacuum() const
 {
     sendCommand("WDP?");
     QString valueInVacuum = receiveCommand();
@@ -49,7 +49,7 @@ QString AnritsuMS9710C::valueInVacuum()
         return "Air";
 }
 
-void AnritsuMS9710C::valueInVacuum(const QString &s)
+void AnritsuMS9710C::valueInVacuum(const QString &s) const
 {
     if(s == "Vacuum")
         sendCommand("WDP VACUUM");
@@ -57,35 +57,35 @@ void AnritsuMS9710C::valueInVacuum(const QString &s)
         sendCommand("WDP AIR");
 }
 
-QString AnritsuMS9710C::levelScale()
+QString AnritsuMS9710C::levelScale() const
 {
     sendCommand("LVS?");
     return receiveCommand();
 }
 
-double AnritsuMS9710C::dbDiv()
+double AnritsuMS9710C::dbDiv() const
 {
     sendCommand("LOG?");
     return receiveCommand().toDouble();
 }
 
-void AnritsuMS9710C::dbDiv(const double &d)
+void AnritsuMS9710C::dbDiv(const double &d) const
 {
      sendCommand(QString("LOG %1").arg(d,0,'g',3));
 }
 
-double AnritsuMS9710C::refLevel()
+double AnritsuMS9710C::refLevel() const
 {
     sendCommand("RLV?");
     return receiveCommand().toDouble();
 }
 
-void AnritsuMS9710C::refLevel(const double &d)
+void AnritsuMS9710C::refLevel(const double &d) const
 {
     sendCommand(QString("RLV %1").arg(d,0,'g',3));
 }
 
-std::pair<QString, double> AnritsuMS9710C::linearLevel()
+std::pair<QString, double> AnritsuMS9710C::linearLevel() const
 {
     std::pair<QString,double> par;
     QString linear;
@@ -104,7 +104,7 @@ std::pair<QString, double> AnritsuMS9710C::linearLevel()
     return par;
 }
 
-void AnritsuMS9710C::linearLevel(const std::pair<QString, double> &p)
+void AnritsuMS9710C::linearLevel(const std::pair<QString, double> &p) const
 {
     if(p.first == "pW")
         sendCommand(QString("LLV %1PW").arg(p.second,0,'g',4));
@@ -116,7 +116,7 @@ void AnritsuMS9710C::linearLevel(const std::pair<QString, double> &p)
         sendCommand(QString("LLV %1MW").arg(p.second,0,'g',4));
 }
 
-bool AnritsuMS9710C::optAtt()
+bool AnritsuMS9710C::optAtt() const
 {
     sendCommand("ATT?");
     if(receiveCommand() == "ON")
@@ -125,7 +125,7 @@ bool AnritsuMS9710C::optAtt()
         return false;
 }
 
-void AnritsuMS9710C::optAtt(bool checked)
+void AnritsuMS9710C::optAtt(bool checked) const
 {
     if(checked)
         sendCommand("ATT ON");
@@ -133,18 +133,18 @@ void AnritsuMS9710C::optAtt(bool checked)
         sendCommand("ATT OFF");
 }
 
-QString AnritsuMS9710C::resolution()
+QString AnritsuMS9710C::resolution() const
 {
     sendCommand("RES?");
     return receiveCommand();
 }
 
-void AnritsuMS9710C::resoluiton(const QString &s)
+void AnritsuMS9710C::resoluiton(const QString &s) const
 {
         sendCommand("RES "+s);
 }
 
-bool AnritsuMS9710C::actualResolution()
+bool AnritsuMS9710C::actualResolution() const
 {
     sendCommand("ARES?");
     if(receiveCommand() == "ON")
@@ -153,7 +153,7 @@ bool AnritsuMS9710C::actualResolution()
         return false;
 }
 
-void AnritsuMS9710C::actualResolution(bool checked)
+void AnritsuMS9710C::actualResolution(bool checked) const
 {
     if(checked)
         sendCommand("ARES ON");
@@ -162,24 +162,24 @@ void AnritsuMS9710C::actualResolution(bool checked)
 
 }
 
-QString AnritsuMS9710C::actualResolutionValue()
+QString AnritsuMS9710C::actualResolutionValue() const
 {
     sendCommand("ARED?");
     return receiveCommand();
 }
 
-QString AnritsuMS9710C::videoBandwidth()
+QString AnritsuMS9710C::videoBandwidth() const
 {
     sendCommand("VBW?");
     return receiveCommand();
 }
 
-void AnritsuMS9710C::videoBandwidth(const QString &s)
+void AnritsuMS9710C::videoBandwidth(const QString &s) const
 {
     sendCommand("VBW "+s);
 }
 
-int AnritsuMS9710C::pointAverage()
+int AnritsuMS9710C::pointAverage() const
 {
     sendCommand("AVT?");
     QString pointAverage = receiveCommand();
@@ -189,7 +189,7 @@ int AnritsuMS9710C::pointAverage()
         return pointAverage.toInt();
 }
 
-void AnritsuMS9710C::pointAverage(const int &i)
+void AnritsuMS9710C::pointAverage(const int &i) const
 {
     if(i == 1)
         sendCommand("AVT OFF");
@@ -197,7 +197,7 @@ void AnritsuMS9710C::pointAverage(const int &i)
         sendCommand("AVT "+QString::number(i));
 }
 
-int AnritsuMS9710C::sweepAverage()
+int AnritsuMS9710C::sweepAverage() const
 {
     sendCommand("AVS?");
     QString sweepAverage = receiveCommand();
@@ -207,7 +207,7 @@ int AnritsuMS9710C::sweepAverage()
         return sweepAverage.toInt();
 }
 
-void AnritsuMS9710C::sweepAverage(const int &i)
+void AnritsuMS9710C::sweepAverage(const int &i) const
 {
     if(i == 1)
         sendCommand("AVS OFF");
@@ -215,7 +215,7 @@ void AnritsuMS9710C::sweepAverage(const int &i)
         sendCommand("AVS "+QString::number(i));
 }
 
-QString AnritsuMS9710C::smooth()
+QString AnritsuMS9710C::smooth() const
 {
     sendCommand("SMT?");
     QString smooth = receiveCommand();
@@ -225,7 +225,7 @@ QString AnritsuMS9710C::smooth()
         return smooth;
 }
 
-void AnritsuMS9710C::smooth(const QString &s)
+void AnritsuMS9710C::smooth(const QString &s) const
 {
     if(s == "1")
         sendCommand("SMT OFF");
@@ -233,18 +233,18 @@ void AnritsuMS9710C::smooth(const QString &s)
         sendCommand("SMT "+s);
 }
 
-QString AnritsuMS9710C::samplingPoints()
+QString AnritsuMS9710C::samplingPoints() const
 {
     sendCommand("MPT?");
     return receiveCommand();
 }
 
-void AnritsuMS9710C::samplingPoints(const QString &s)
+void AnritsuMS9710C::samplingPoints(const QString &s) const
 {
     sendCommand("MPT "+ s);
 }
 
-bool AnritsuMS9710C::buzzer()
+bool AnritsuMS9710C::buzzer() const
 {
     sendCommand("BUZ?");
     if(receiveCommand() == "ON")
@@ -253,7 +253,7 @@ bool AnritsuMS9710C::buzzer()
         return false;
 }
 
-void AnritsuMS9710C::buzzer(bool checked)
+void AnritsuMS9710C::buzzer(bool checked) const
 {
     if(checked)
         sendCommand("BUZ ON");
@@ -267,50 +267,50 @@ QString AnritsuMS9710C::error()
     return receiveCommand();
 }
 
-int AnritsuMS9710C::autoBacklight()
+int AnritsuMS9710C::autoBacklight() const
 {
     sendCommand("BKL?");
     return receiveCommand().toInt();
 }
 
-void AnritsuMS9710C::autoBacklight(const int &autoBacklight)
+void AnritsuMS9710C::autoBacklight(const int &autoBacklight) const
 {
     sendCommand("BKL " + QString::number(autoBacklight));
 }
 
-int AnritsuMS9710C::terminater()
+int AnritsuMS9710C::terminater() const
 {
     sendCommand("TRM?");
     return receiveCommand().toInt();
 }
 
-void AnritsuMS9710C::terminater(const int &terminater)
+void AnritsuMS9710C::terminater(const int &terminater) const
 {
     sendCommand("TRM " + QString::number(terminater));
 }
 
-void AnritsuMS9710C::singleSweep()
+void AnritsuMS9710C::singleSweep() const
 {
     sendCommand("SSI");
 }
 
-void AnritsuMS9710C::repeatSweep()
+void AnritsuMS9710C::repeatSweep() const
 {
     sendCommand("SRT");
 }
 
-int AnritsuMS9710C::isSweep()
+int AnritsuMS9710C::isSweep() const
 {
     sendCommand("MOD?");
     return receiveCommand().toInt();
 }
 
-void AnritsuMS9710C::stopSweep()
+void AnritsuMS9710C::stopSweep() const
 {
     sendCommand("SST");
 }
 
-QString AnritsuMS9710C::receiveSpectrum(bool checked)
+QString AnritsuMS9710C::receiveSpectrum(bool checked) const
 {
     if(checked)
         sendCommand("DQA?");
@@ -319,40 +319,40 @@ QString AnritsuMS9710C::receiveSpectrum(bool checked)
     return receiveCommand();
 }
 
-void AnritsuMS9710C::peakSearch()
+void AnritsuMS9710C::peakSearch() const
 {
     sendCommand("PKS NEXT");
     //sendCommand("PKS PEAK");
 }
 
-void AnritsuMS9710C::dipSearch()
+void AnritsuMS9710C::dipSearch() const
 {
     sendCommand("DPS NEXT");
     //sendCommand("DPS DIP");
 }
 
-void AnritsuMS9710C::peakCenter()
+void AnritsuMS9710C::peakCenter() const
 {
     sendCommand("PKC");
 }
 
-void AnritsuMS9710C::tMkrCenter()
+void AnritsuMS9710C::tMkrCenter() const
 {
     sendCommand("TMC");
 }
 
-void AnritsuMS9710C::peakLevel()
+void AnritsuMS9710C::peakLevel() const
 {
     sendCommand("PKL");
 }
 
-QString AnritsuMS9710C::memorySelect()
+QString AnritsuMS9710C::memorySelect() const
 {
     sendCommand("MSL?");
     return receiveCommand();
 }
 
-void AnritsuMS9710C::memorySelect(bool checked)
+void AnritsuMS9710C::memorySelect(bool checked) const
 {
     if(checked)
         sendCommand("MSL A");
@@ -360,29 +360,29 @@ void AnritsuMS9710C::memorySelect(bool checked)
         sendCommand("MSL B");
 }
 
-double AnritsuMS9710C::centralWavelength()
+double AnritsuMS9710C::centralWavelength() const
 {
     sendCommand("CNT?");
     return receiveCommand().toDouble();
 }
 
-void AnritsuMS9710C::centralWavelength(const double& center)
+void AnritsuMS9710C::centralWavelength(const double& center) const
 {
     sendCommand(QString("CNT %1").arg(center,0,'g',6));
 }
 
-double AnritsuMS9710C::span()
+double AnritsuMS9710C::span() const
 {
     sendCommand("SPN?");
     return receiveCommand().toDouble();
 }
 
-void AnritsuMS9710C::span(const double& span)
+void AnritsuMS9710C::span(const double& span) const
 {
     sendCommand(QString("SPN %1").arg(span,0,'g',5));
 }
 
-QString AnritsuMS9710C::markerValue()
+QString AnritsuMS9710C::markerValue() const
 {
     sendCommand("MKV?");
     QString markerValue = receiveCommand();
@@ -392,7 +392,7 @@ QString AnritsuMS9710C::markerValue()
         return "Frequency";
 }
 
-void AnritsuMS9710C::markerValue(const QString &s)
+void AnritsuMS9710C::markerValue(const QString &s) const
 {
     if(s == "Wavelength")
         sendCommand("MKV WL");
@@ -400,12 +400,12 @@ void AnritsuMS9710C::markerValue(const QString &s)
         sendCommand("MKV FREQ");
 }
 
-void AnritsuMS9710C::sendCommand(const QString &s)
+void AnritsuMS9710C::sendCommand(const QString &s) const
 {
     serial->write((s+"\n").toLocal8Bit());
 }
 
-QString AnritsuMS9710C::receiveCommand()
+QString AnritsuMS9710C::receiveCommand() const
 {
     QByteArray array;
     if(serial->waitForReadyRead(this->firstWaitTime)) {

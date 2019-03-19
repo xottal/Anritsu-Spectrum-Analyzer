@@ -7,7 +7,6 @@
 #include <QSerialPortInfo>
 #include <QTime>
 #include <QDebug>
-#include <QTest>
 #include <QDir>
 #include "helpwindow.h"
 #include "settings.h"

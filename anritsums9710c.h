@@ -4,7 +4,6 @@
 #include <QSerialPort>
 #include <QSerialPortInfo>
 #include <QObject>
-#include <QTest>
 
 class AnritsuMS9710C : public QObject
 {
@@ -14,92 +13,91 @@ public:
     ~AnritsuMS9710C();
 
     bool connectSerialPort(const QString&);
-    void disconnectSerialPort();
-    QSerialPort::SerialPortError serialError();
-    QString identifecation();
+    void disconnectSerialPort() const;
+    QSerialPort::SerialPortError serialError() const;
+    QString identifecation() const;
 
-    QString memorySelect();
-    void memorySelect(bool);
+    QString memorySelect() const;
+    void memorySelect(bool) const;
 
-    double centralWavelength();
-    void centralWavelength(const double&);
+    double centralWavelength() const;
+    void centralWavelength(const double&) const;
 
-    double span();
-    void span(const double&);
+    double span() const;
+    void span(const double&) const;
 
-    QString markerValue();
-    void markerValue(const QString&);
+    QString markerValue() const;
+    void markerValue(const QString&) const;
 
-    QString valueInVacuum();
-    void valueInVacuum(const QString&);
+    QString valueInVacuum() const;
+    void valueInVacuum(const QString&) const;
 
-    QString levelScale();
+    QString levelScale() const;
 
-    double dbDiv();
-    void dbDiv(const double&);
+    double dbDiv() const;
+    void dbDiv(const double&) const;
 
-    double refLevel();
-    void refLevel(const double &);
+    double refLevel() const;
+    void refLevel(const double &) const;
 
-    std::pair<QString,double> linearLevel();
-    void linearLevel(const std::pair<QString,double> &);
+    std::pair<QString,double> linearLevel() const;
+    void linearLevel(const std::pair<QString,double> &) const;
 
-    bool optAtt();
-    void optAtt(bool);
+    bool optAtt() const;
+    void optAtt(bool) const;
 
-    QString resolution();
-    void resoluiton(const QString&);
+    QString resolution() const;
+    void resoluiton(const QString&) const;
 
-    bool actualResolution();
-    void actualResolution(bool);
-    QString actualResolutionValue();
+    bool actualResolution() const;
+    void actualResolution(bool) const;
+    QString actualResolutionValue() const;
 
-    QString videoBandwidth();
-    void videoBandwidth(const QString&);
+    QString videoBandwidth() const;
+    void videoBandwidth(const QString&) const;
 
-    int pointAverage();
-    void pointAverage(const int&);
+    int pointAverage() const;
+    void pointAverage(const int&) const;
 
-    int sweepAverage();
-    void sweepAverage(const int&);
+    int sweepAverage() const;
+    void sweepAverage(const int&) const;
 
-    QString smooth();
-    void smooth(const QString&);
+    QString smooth() const;
+    void smooth(const QString&) const;
 
-    QString samplingPoints();
-    void samplingPoints(const QString&);
+    QString samplingPoints() const;
+    void samplingPoints(const QString&) const;
 
-    bool buzzer();
-    void buzzer(bool);
+    bool buzzer() const;
+    void buzzer(bool) const;
 
+    int autoBacklight() const;
+    void autoBacklight(const int&) const;
+
+    int terminater() const;
+    void terminater(const int&) const;
+
+    void singleSweep() const;
+    void repeatSweep() const;
+    int isSweep() const;
+    void stopSweep() const;
+
+    QString receiveSpectrum(bool) const;
+
+    void peakSearch() const;
+    void dipSearch() const;
+    void peakCenter() const;
+    void tMkrCenter() const;
+    void peakLevel() const;
+public slots:
     QString error();
-
-    int autoBacklight();
-    void autoBacklight(const int&);
-
-    int terminater();
-    void terminater(const int&);
-
-    void singleSweep();
-    void repeatSweep();
-    int isSweep();
-    void stopSweep();
-
-    QString receiveSpectrum(bool);
-
-    void peakSearch();
-    void dipSearch();
-    void peakCenter();
-    void tMkrCenter();
-    void peakLevel();
-
 signals:
-    void errorMessage(const QString&);
+    void errorMessage(const QString&) const;
 
 private:
     QSerialPort *serial;
-    void sendCommand(const QString&);
-    QString receiveCommand();
+    void sendCommand(const QString&) const;
+    QString receiveCommand() const;
 
     const int firstWaitTime = 500;
     const int additionalWaitTime = 20;

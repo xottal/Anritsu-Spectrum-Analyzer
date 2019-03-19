@@ -47,7 +47,7 @@ void Settings::errorSlot(QString error)
 
 void Settings::buzzerSlotPush()
 {
-    buzzerSignal(ui->checkBox_buzzer->isChecked());
+    on_checkBox_buzzer_clicked();
 }
 
 void Settings::autoBacklightSlotPush()

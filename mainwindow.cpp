@@ -37,7 +37,7 @@ MainWindow::MainWindow(QWidget *parent) :
     Resolution.push_back("0.1");
     Resolution.push_back("0.2");
     Resolution.push_back("0.5");
-    Resolution.push_back("1");
+    Resolution.push_back("1.0");
     ui->comboBox_Resolution->addItems(Resolution);
 
     QStringList VBW;
@@ -95,6 +95,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(this, &MainWindow::terminaterSignalPush,settings,&Settings::terminaterSlotPush);
 
     connect(anritsu,&AnritsuMS9710C::errorMessage,this,&MainWindow::get_error);
+    ui->widget_graph->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom | QCP::iSelectPlottables);
 }
 
 MainWindow::~MainWindow()
@@ -147,7 +148,7 @@ void MainWindow::on_pushButton_Connect_clicked()
             settingsPull();
             ui->widget_graph->addGraph();
             if(ui->comboBox_LogLin->currentText() == "Log")
-                ui->widget_graph->yAxis->setLabel("dB/div");
+                ui->widget_graph->yAxis->setLabel("dBm");
             else {
                 ui->widget_graph->yAxis->setLabel(ui->comboBox_LinearLevel->currentText());
             }
@@ -295,7 +296,7 @@ void MainWindow::settingsPush()
     emit autoBacklightSignalPush();
     emit buzzerSignalPush();
     //emit terminaterSignalPush();
-    emit message("Pull finished");
+    emit message("Push finished");
 }
 
 void MainWindow::on_pushButton_recieveSpectrum_clicked()
@@ -353,16 +354,14 @@ void MainWindow::on_radioButton_memoryA_clicked()
 {
     anritsu->memorySelect(true);
     ui->radioButton_memoryA->setChecked(true);
-    QTest::qWait(5000);
-    settingsPull();
+    //QTest::qWait(5000);
 }
 
 void MainWindow::on_radioButton_memoryB_clicked()
 {
     anritsu->memorySelect(false);
     ui->radioButton_memoryB->setChecked(true);
-    QTest::qWait(5000);
-    settingsPull();
+    //QTest::qWait(5000);
 }
 
 void MainWindow::on_doubleSpinBox_Center_editingFinished()
@@ -471,7 +470,9 @@ void MainWindow::on_comboBox_SamplingPoints_activated(const QString &arg1)
 void MainWindow::on_pushButton_exportToFile_clicked()
 {
     QDir dir = QDir();
-    QFile file(dir.absolutePath()+"/"+ui->lineEdit_nameOfFile->text()+"_"+QDateTime::currentDateTime().toString("yyyy_MM_dd_HH_mm_ss")+".dat");
+    if(!dir.exists(dir.absolutePath()+"/Spectrums/"))
+        dir.mkpath(dir.absolutePath()+"/Spectrums/");
+    QFile file(dir.absolutePath()+"/Spectrums/"+ui->lineEdit_nameOfFile->text()+"_"+QDateTime::currentDateTime().toString("yyyy_MM_dd_HH_mm_ss")+".dat");
     if (!file.open(QIODevice::WriteOnly)) {
         emit message("Can't open file");
         return;
