@@ -142,7 +142,14 @@ void MainWindow::on_pushButton_Connect_clicked()
             emit message(tr("Can't open %1, error code %2").arg(ui->comboBox_ComPort->currentText()).arg(anritsu->serialError()));
             return;
         } else {
-            emit message(anritsu->identifecation());
+            QString idn = anritsu->identifecation();
+            if(!idn.contains("9710")) {
+                emit message("Other device. Change COM port");
+                anritsu->disconnectSerialPort();
+                return;
+            }
+            ui->comboBox_ComPort->setEnabled(false);
+            emit message(idn);
             initialization(true);
             ui->pushButton_Connect->setText("Disconnect");
             settingsPull();
@@ -161,6 +168,7 @@ void MainWindow::on_pushButton_Connect_clicked()
             anritsu->disconnectSerialPort();
             emit message("Disconnected");// Закрыть открытый порт
             initialization(false);
+            ui->comboBox_ComPort->setEnabled(true);
             ui->pushButton_Connect->setText("Connect"); // Перевести кнопку
     }
 }

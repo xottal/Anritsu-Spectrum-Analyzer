@@ -1,0 +1,12 @@
+release/main.o
+release/mainwindow.o
+release/helpwindow.o
+release/settings.o
+release/anritsums9710c.o
+release/qcustomplot.o
+release/qrc_pinout.o
+release/moc_mainwindow.o
+release/moc_helpwindow.o
+release/moc_settings.o
+release/moc_anritsums9710c.o
+release/moc_qcustomplot.o
